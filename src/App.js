@@ -1,23 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
 function App() {
+  const [name, SetName] = useState("");
+  const [age, SetAge] = useState(0);
+  const [arrayNams, SetArrayName] = useState([]);
+
+  const addPerson = () => {
+    console.log(arrayNams);
+    SetArrayName([...arrayNams, { name: name, age: age }]);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="form">
+      <h1>Formulario de Registro</h1>
+      <input
+        type="text"
+        placeholder="Nombre"
+        onChange={(event) => {
+          SetName(event.target.value);
+        }}
+      ></input>
+      <input
+        type="number"
+        placeholder="Edad"
+        onChange={(event) => {
+          SetAge(event.target.value);
+        }}
+      ></input>
+      <button onClick={addPerson}>Agregar Usuario</button>
+
+      {arrayNams.map((val, key) => {
+        return (
+          <p key={key}>
+            Nombre: {val.name} Edad: {val.age}
+          </p>
+        );
+      })}
     </div>
   );
 }
